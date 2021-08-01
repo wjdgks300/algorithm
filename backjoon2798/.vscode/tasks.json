@@ -1,0 +1,12 @@
+{
+    "tasks": [
+        {
+            "type": "shell",
+            "command": "gcc",
+            "args": [
+                "bruteforce.c"
+            ],
+        }
+    ],
+    "version": "2.0.0"
+}
