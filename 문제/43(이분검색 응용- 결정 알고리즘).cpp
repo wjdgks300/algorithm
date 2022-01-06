@@ -2,41 +2,43 @@
 #include <vector>
 #include <algorithm>
 using namespace std;
+int num[1001], n;
+
+int count(int s){
+	int cnt =1, sum =0;
+	for(int i = 0; i<n; i++){
+		if(sum+num[i] > s){
+			cnt++;
+			sum = num[i];		
+		}else{
+			sum += num[i];
+		}
+	}
+	return cnt;
+}
 
 int main() {
-	int n, m, lt = 0, rt, mid, max, sum =0, cnt = 0;
+	//freopen("input.txt", "rt", stdin);
+	int m, lt = 0, rt, mid, max, res, maxx = 0;
 	scanf("%d %d", &n, &m);
-	vector<int> num(n);
 	
 	for(int i =0;i < n; i++){
 		scanf("%d", &num[i]);
 		max += num[i];
+		if(num[i] > maxx) maxx = num[i];
 	}
 	rt = max-1;
-	
 	int ret = 0;
-	while(lt != rt){
+	while(lt <= rt){
 		mid = (lt + rt) / 2;
-		for(int i =0; i < n; i++){
-			if(sum < mid)sum += num[i];
-			else if(sum >= mid){
-				sum = 0;
-				cnt++;
-			}
-		}
-		if(cnt ==3){
-			ret = mid;
-			rt = mid -1;		
-		}
-		else if(cnt <3){
-			lt = mid+1;			
+		if(count(mid) <= m && mid >= maxx){
+			res=mid;
+			rt = mid - 1;
 		}else{
-			rt = mid -1;
+			lt = mid + 1;
 		}
 	}
-	printf("%d", mid);
-	
-	
+	printf("%d", res);
 	
 	return 0;
 }
