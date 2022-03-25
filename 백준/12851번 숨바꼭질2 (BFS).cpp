@@ -3,7 +3,7 @@ using namespace std;
 
 int x, k;
 int dx[3] = {-1, 1, 2};
-int mins = 99999;
+int mins = 999999999;
 int ch[100001];
 
 struct loc{
@@ -22,14 +22,11 @@ int bfs(int s){
 		loc tmp = Q.front();
 		Q.pop();
 		ch[tmp.x] = 1;
-		if(tmp.cnt > mins) continue;
+		if(tmp.cnt > mins) break;
 		if(tmp.x == k){
-			if(mins > tmp.cnt){
-				mins  = tmp.cnt;
-				var = 1;
-			}else if(mins == tmp.cnt){
-				var++;
-			}
+			mins = tmp.cnt;
+			var++;
+			continue;
 		}
 		for(int i =0; i <3; i++){
 			int xx;
@@ -42,7 +39,7 @@ int bfs(int s){
 			
 			}else{
 				xx = tmp.x * dx[i];				
-				if(xx <= 100000 && ch[xx] != 1 ){
+				if(xx <= 100000 && ch[xx] != 1){
 					Q.push(loc(xx, tmp.cnt + 1));		
 				}			
 			}
