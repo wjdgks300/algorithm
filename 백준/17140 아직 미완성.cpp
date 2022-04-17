@@ -18,6 +18,7 @@ struct loc{
 
 bool cal(int counts){
 	if(length >= width){
+		int tmp_width = 0, maxw =0;
 		for(int k = 1; k <= width; k++){
 			vector<int> vec = num[k];
 			sort(vec.begin(), vec.end());
@@ -42,11 +43,19 @@ bool cal(int counts){
 		 		num[k][count++] = tmp[i].cnt;
 		 		if(maxs < count) maxs = count;
 			 }
-			 for(int i = count; i <= maxs; i++){
+			 
+			 for(int i = count; i <= 100; i++){
 			 	num[k][i] = 0;
-			 }	
+			 	//cout << i << " " << maxs;
+			}
+			tmp_width = tmp.size() * 2;
+			if(maxw < tmp_width) {
+				maxw = tmp_width;
+				cout << tmp.size() << "change" << endl;;
+			}
 		}
-		width = maxs -1;
+		width = maxw;
+		cout << "len = " << length << "wid = " << width <<endl;
 		for(int i =1;i <=length; i++){
 			for(int j = 1; j<=width; j++){
 				cout <<num[i][j] << " ";
@@ -55,6 +64,7 @@ bool cal(int counts){
 		}			
 		
 	}else{
+		int tmp_width, maxw = 0;
 		for(int k = 1; k <= width; k++){
 			vector<int> vec;
 			vec.push_back(0);
@@ -83,12 +93,15 @@ bool cal(int counts){
 		 		num[count++][k] = tmp[i].cnt;
 		 		if(maxs < count) maxs = count;
 			 }
-			 for(int i = count; i <= maxs; i++){
+			 for(int i = count; i <= 100; i++){
 			 	num[i][k] = 0;
-			 }	
+			 }
+			tmp_width = tmp.size() * 2;
+			if(maxw < tmp_width) maxw = tmp_width;
 		}
-		length = maxs-1;
-		
+		length = maxw;
+		width = maxs - 1;
+		cout << "len = " << length << "wid = " << width <<endl;
 		for(int i =1;i <=length; i++){
 			for(int j = 1; j<=width; j++){
 				cout <<num[i][j] << " ";
