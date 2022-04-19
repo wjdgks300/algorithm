@@ -2,7 +2,7 @@
 using namespace std;
 
 int r, c, K, length, width, maxs = 3;
-vector<vector<int> > num(101,vector<int> (101,0));
+vector<vector<int> > num(102,vector<int> (102,0));
 
 struct loc{
 	int var;
@@ -13,13 +13,14 @@ struct loc{
 	}
 	bool operator < (const loc &b)const{
 		if(var != 0)return cnt < b.cnt;
+		else return var > b.var;
 	}
 };
 
 bool cal(int counts){
 	if(length >= width){
 		int tmp_width = 0, maxw =0;
-		for(int k = 1; k <= width; k++){
+		for(int k = 1; k <= length; k++){
 			vector<int> vec = num[k];
 			sort(vec.begin(), vec.end());
 			vector<loc> tmp;
@@ -44,24 +45,24 @@ bool cal(int counts){
 		 		if(maxs < count) maxs = count;
 			 }
 			 
-			 for(int i = count; i <= 100; i++){
+			 for(int i = count; i <= 101; i++){
 			 	num[k][i] = 0;
 			 	//cout << i << " " << maxs;
 			}
 			tmp_width = tmp.size() * 2;
 			if(maxw < tmp_width) {
 				maxw = tmp_width;
-				cout << tmp.size() << "change" << endl;;
+//				cout << tmp.size() << "change" << endl;;
 			}
 		}
 		width = maxw;
-		cout << "len = " << length << "wid = " << width <<endl;
-		for(int i =1;i <=length; i++){
-			for(int j = 1; j<=width; j++){
-				cout <<num[i][j] << " ";
-			}
-			cout << endl;
-		}			
+//		cout << "len = " << length << "wid = " << width <<endl;
+//		for(int i =1;i <=length; i++){
+//			for(int j = 1; j<=width; j++){
+//				cout <<num[i][j] << " ";
+//			}
+//			cout << endl;
+//		}			
 		
 	}else{
 		int tmp_width, maxw = 0;
@@ -71,7 +72,7 @@ bool cal(int counts){
 			for(int i = 1; i <= length; i++){
 				vec.push_back(num[i][k]);
 			}
-			sort(vec.begin(), vec.end());
+		9	sort(vec.begin(), vec.end());
 			vector<loc> tmp;
 			for(int i = 1; i<vec.size(); i++){
 				if(tmp.empty() && vec[i] != 0){
@@ -93,7 +94,7 @@ bool cal(int counts){
 		 		num[count++][k] = tmp[i].cnt;
 		 		if(maxs < count) maxs = count;
 			 }
-			 for(int i = count; i <= 100; i++){
+			 for(int i = count; i <= 101; i++){
 			 	num[i][k] = 0;
 			 }
 			tmp_width = tmp.size() * 2;
@@ -101,19 +102,15 @@ bool cal(int counts){
 		}
 		length = maxw;
 		width = maxs - 1;
-		cout << "len = " << length << "wid = " << width <<endl;
-		for(int i =1;i <=length; i++){
-			for(int j = 1; j<=width; j++){
-				cout <<num[i][j] << " ";
-			}
-			cout << endl;
-		}				
+//		cout << "len = " << length << "wid = " << width <<endl;
+//		for(int i =1;i <=length; i++){
+//			for(int j = 1; j<=width; j++){
+//				cout <<num[i][j] << " ";
+//			}
+//			cout << endl;
+//		}			
 	}
-	for(int i =1;i <=length; i++){
-		for(int j = 1; j<=width; j++){
-			if(num[r][c] == K) return true;
-		}
-	}
+	if(num[r][c] == K) return true;
 	
 }
 
