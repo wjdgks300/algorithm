@@ -21,7 +21,7 @@ int main(void){
 	int n, m, pay;
 	cin >> n >> m;
 	int maps[1002];
-	fill_n(maps, 1002, 100000);
+	fill_n(maps, 1002, 100000000);
 
 	for(int i = 0; i < m; i++){
 		int a, b;
@@ -33,7 +33,7 @@ int main(void){
 	
 	priority_queue<loc> q;
 	q.push(loc(start, 0));
-	int res = 100000;
+	maps[start] = 0;
 	while(!q.empty()){
 		loc tmp = q.top();
 		int cur = tmp.cur;
