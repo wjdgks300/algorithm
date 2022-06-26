@@ -13,40 +13,45 @@ struct loc{
 	}
 };
 
+int capacity[20000];
+
 int main(void){
 	ios_base::sync_with_stdio(false);
 	cin.tie(0);
-	freopen("input.txt", "rt", stdin);
+	//freopen("sample_input.txt", "rt", stdin);
 	int t;
 	cin >> t;
 	for(int i = 0; i < t;i++){
 		int n, m, d;
 		cin >> n >> m >> d;
-		priority_queue<int> v;
+        int size = n * m;
+		vector<int> v;
 		vector<int> v2;
+        int next = 0;
 		for(int j = 0; j< n; j++){
 			for(int k = 0; k < m;k++){
 				int num;
 				cin >> num;
-				v.push(num);
+				v.push_back(num);
+                v2.push_back(0);
 			}
 		}
-        int size = (n-1) * (m-1);
 		for(int j = 0; j <d; j++){
-			int num;
-			cin >> num;
-			v2.push_back(num);
+			cin >> capacity[j];
 		}
+        sort(v.rbegin(), v.rend());
 		long long sum = 0;
-        int cnt = 0;
 		for(int j = 0; j < d; j++){
 			long long day = 0;
 			//cout << v.top();
-			for(int k = 0; k < v2[j];k++){
-				day += v.top() + j;
-//				cout << v[k] << " ";
-				v.pop();
-				v.push(-j);
+			for(int k = 0; k < capacity[j];k++){
+				if(next >= size){
+                    next = 0;
+                }if(v[next] + j +1 -v2[next] == 2) day += 1;
+                else day+= v[next] + j +1 -v2[next] -1;
+                v2[next] = j+1;
+                v[next] = 1;
+                next++;
 			}
 //			cout << "day = "<< j << ":"<< day << endl;
 			sum += day * (j+1);
